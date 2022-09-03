@@ -88,6 +88,15 @@ function convert() {
                 endTime += 12;
             }
         }
+        if (startTime >= endTime) {
+            // 開始時刻は午前，終了時刻は午後と解釈
+            if (startTime >= 12) {
+                startTime -= 12;
+            }
+            if (endTime < 12) {
+                endTime += 12;
+            }
+        }
 
         // 場所を抽出する
         let location = "";
@@ -117,7 +126,7 @@ function convert() {
 
         let startTimeText = startTime > 12 ? startTime - 12 : startTime;
         let endTimeText = endTime > 12 ? endTime - 12 : endTime;
-        let title = `${location}${startTimeText}－${endTimeText}${numberText}番コート`;
+        let title = `${location}${startTimeText}－${endTimeText} ${numberText}番コート`;
 
         result += `${date.getFullYear()},${date.getMonth()+1},${date.getDate()},${startTime},${endTime},${title},${locationName}`;
         result += "\n";
