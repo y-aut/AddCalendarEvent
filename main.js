@@ -27,6 +27,9 @@ function convert() {
 		if (dateText == null) {
 			continue;
 		}
+		// 以降のマッチは日付の後ろから行う
+		str = str.substr(dateText.index);
+
 		let month = Number(dateText[1]);
 		let day = Number(dateText[2]);
 
@@ -48,9 +51,7 @@ function convert() {
 		// 曜日を抽出する
 		let dayText = str.match(/\(([日月火水木金土])\)/);
 		if (dayText != null) {
-			let dayOfWeek = ["日", "月", "火", "水", "木", "金", "土"].indexOf(
-				dayText[1]
-			);
+			let dayOfWeek = "日月火水木金土".indexOf(dayText[1]);
 			// 曜日が合っているか確認
 			if (date.getDay() != dayOfWeek) {
 				alert(
@@ -66,7 +67,12 @@ function convert() {
 		if (numberText != null) {
 			numberText = numberText[0];
 		} else {
-			numberText = "？";
+			numberText = str.match(/\((\d{1,2})\)/);
+			if (numberText != null) {
+				numberText = numberText[1];
+			} else {
+				numberText = "？";
+			}
 		}
 
 		// 時刻を抽出する
@@ -149,9 +155,10 @@ function convert() {
 			["御", "御所", "京都御苑テニスコート"],
 			["向", "向島", "HOS向島テニスコート"],
 			["勧", "勧修寺", "勧修寺公園テニスコート"],
-			["中", "中書島", "伏見港公園テニスコート"],
-			["丹", "丹波", "伏見北堀公園"],
+			["丹", "丹波", "丹波橋テニスコート"],
+			["桂", "桂", "京都大学 桂キャンパステニスコート"],
 			["西", "西院", "西院公園テニスコート"],
+			["中", "中書島", "伏見港公園テニスコート"],
 		];
 
 		for (let loc of list) {
