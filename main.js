@@ -25,7 +25,10 @@ function convert() {
 		// 日付を抽出する
 		let dateText = str.match(/([01]?\d)\/([0123]?\d)/);
 		if (dateText == null) {
-			continue;
+			dateText = str.match(/([01]?\d)月([0123]?\d)日/);
+			if (dateText == null) {
+				continue;
+			}
 		}
 		// 以降のマッチは日付の後ろから行う
 		str = str.substr(dateText.index);
